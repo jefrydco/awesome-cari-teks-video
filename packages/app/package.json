@@ -1,0 +1,40 @@
+{
+  "name": "@awesome-cari-teks-video/app",
+  "version": "0.0.1",
+  "description": "Display awesome list of cari teks video app on the web",
+  "license": "MIT",
+  "scripts": {
+    "build": "nuxt-ts build --modern",
+    "dev": "nuxt-ts",
+    "generate": "nuxt-ts generate --modern",
+    "start": "nuxt-ts start",
+    "deploy": "yarn generate && cross-zip dist"
+  },
+  "dependencies": {
+    "@awesome-cari-teks-video/data": "^0.0.1",
+    "@nuxt/typescript-runtime": "^2.0.1",
+    "@nuxtjs/google-fonts": "^1.2.0",
+    "@nuxtjs/pwa": "^3.3.5",
+    "debounce-fn": "^4.0.0",
+    "lunr": "^2.3.9",
+    "nuxt": "^2.14.12",
+    "nuxt-i18n": "^6.18.0",
+    "vue-lazyload": "^1.3.3"
+  },
+  "devDependencies": {
+    "@nuxt/types": "^2.14.12",
+    "@nuxt/typescript-build": "^2.0.4",
+    "@nuxtjs/color-mode": "^2.0.3",
+    "@nuxtjs/eslint-config-typescript": "^5.0.0",
+    "@nuxtjs/tailwindcss": "^3.4.2",
+    "@types/lunr": "^2.3.3",
+    "cross-zip-cli": "^1.0.0",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-vue": "^7.5.0",
+    "postcss-nested": "^4.2.3",
+    "responsive-loader": "^2.3.0",
+    "sharp": "^0.27.1"
+  }
+}

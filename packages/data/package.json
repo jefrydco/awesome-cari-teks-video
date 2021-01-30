@@ -1,0 +1,14 @@
+{
+  "name": "@awesome-cari-teks-video/data",
+  "version": "0.0.1",
+  "description": "Awesome list of cari teks video app",
+  "license": "MIT",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "build": "tsc -b"
+  },
+  "devDependencies": {
+    "typescript": "^4.1.3"
+  }
+}

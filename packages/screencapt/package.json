@@ -1,0 +1,23 @@
+{
+  "name": "@awesome-cari-teks-video/screencapt",
+  "version": "0.0.1",
+  "description": "Take screencapt of awesome list of cari teks video app with puppeteer",
+  "main": "index.ts",
+  "license": "MIT",
+  "scripts": {
+    "start": "ts-node index.ts",
+    "move": "ts-node move.ts"
+  },
+  "dependencies": {
+    "@awesome-cari-teks-video/data": "^0.0.1",
+    "p-series": "^2.1.0",
+    "puppeteer": "^5.5.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.6",
+    "@types/parse-github-url": "^1.0.0",
+    "@types/puppeteer": "^5.4.2",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.3"
+  }
+}
