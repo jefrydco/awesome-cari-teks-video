@@ -13,9 +13,6 @@
 
 <template>
   <section class="card">
-    <!-- <a :aria-label="title" :href="href" target="_blank" class="card__link">
-      {{ title }}
-    </a> -->
     <div class="card__img">
       <app-img :src="img" :alt="name" width="346" height="256" />
     </div>
@@ -107,15 +104,6 @@ export default Vue.extend({
 
   &__summary {
     @apply leading-normal mb-0;
-  }
-
-  &__link {
-    @apply absolute top-0 left-0 w-full h-full overflow-hidden z-0;
-    text-indent: -9999px;
-
-    &:focus {
-      border: 0.125rem solid var(--text-normal);
-    }
   }
 }
 
