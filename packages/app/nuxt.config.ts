@@ -10,7 +10,7 @@ export default {
       {
         name: 'viewport',
         content: 'width=device-width, initial-scale=1, minimum-scale=1'
-      },
+      }
     ]
   },
 
@@ -18,20 +18,22 @@ export default {
 
   components: true,
 
+  generate: {
+    fallback: true
+  },
+
   loading: {
     color: 'var(--text-normal)',
     failedColor: '#f56565'
   },
 
-  modules: [
-    '@nuxtjs/google-fonts',
+  modules: ['@nuxtjs/google-fonts', '@nuxtjs/pwa', 'nuxt-i18n'],
 
-    '@nuxtjs/pwa',
-
-    'nuxt-i18n',
+  buildModules: [
+    '@nuxtjs/color-mode',
+    '@nuxtjs/tailwindcss',
+    '~/buildModules/nuxt-responsive-loader'
   ],
-
-  buildModules: ['@nuxtjs/color-mode', '@nuxtjs/tailwindcss', '~/buildModules/nuxt-responsive-loader'],
 
   css: ['~/assets/styles/app'],
 
@@ -111,7 +113,7 @@ export default {
         name: 'English',
         file: 'en.ts'
       }
-    ],
+    ]
   },
 
   colorMode: {
@@ -127,7 +129,7 @@ export default {
       }
     }
   },
-  
+
   responsiveLoader: {
     size: 1920,
     placeholder: true,
