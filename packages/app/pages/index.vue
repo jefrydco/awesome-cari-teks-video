@@ -9,7 +9,8 @@
     "indonesian": "Indonesian",
     "other_lang": "Read in other languages",
     "search": "Search",
-    "no_result": "No result found, please try again using another keyword"
+    "no_result": "No result found, please try again using another keyword",
+    "sort": "Sort {sort}"
   },
   "id": {
     "description": "Menampilkan daftar aplikasi keren yang menggunakan API Cari Teks Video",
@@ -20,7 +21,8 @@
     "indonesian": "Bahasa Indonesia",
     "other_lang": "Baca dalam bahasa lain",
     "search": "Cari",
-    "no_result": "Hasil pencarian tidak ditemukan, mohon coba lagi menggunakan kata kunci yang lain"
+    "no_result": "Hasil pencarian tidak ditemukan, mohon coba lagi menggunakan kata kunci yang lain",
+    "sort": "Urutkan {sort}"
   }
 }
 </i18n>
@@ -40,8 +42,10 @@
         <a
           v-for="link in links"
           :key="link.text"
-          class="content__link"
           :href="link.url"
+          class="content__link"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           {{ $t(link.text) }}
         </a>
@@ -49,10 +53,20 @@
       <div class="content__search">
         <input
           v-model="keyword"
+          :aria-label="$t('search')"
           type="text"
           class="input"
-          :aria-label="$t('search')"
         />
+      </div>
+      <div class="content__sort">
+        <select
+          v-model="sort"
+          :aria-label="$t('sort', { sort })"
+          class="select"
+        >
+          <option value="A-Z">A-Z</option>
+          <option value="Z-A">Z-A</option>
+        </select>
       </div>
     </header>
     <div v-if="results.length" class="content__data">
@@ -92,20 +106,7 @@ export default Vue.extend({
       keyword: null,
       results: data,
       index: null,
-      links: [
-        {
-          text: 'source_code',
-          url: 'https://github.com/jefrydco/awesome-cari-teks-video'
-        },
-        {
-          text: 'api_docs',
-          url: 'https://github.com/jefrydco/cari-teks-video-api'
-        },
-        {
-          text: 'blog_post',
-          url: 'https://jefrydco.id/blog/'
-        }
-      ]
+      sort: 'A-Z'
     }
   },
   head() {
@@ -122,12 +123,49 @@ export default Vue.extend({
         return locale.code
       }
       return 'id'
+    },
+    links() {
+      let links = [
+        {
+          text: 'source_code',
+          url: 'https://github.com/jefrydco/awesome-cari-teks-video'
+        },
+        {
+          text: 'api_docs',
+          url: 'https://github.com/jefrydco/cari-teks-video-api'
+        }
+      ]
+      if (this.$i18n.locale === 'id') {
+        return [
+          ...links,
+          {
+            text: 'blog_post',
+            url:
+              'https://jefrydco.id/blog/search-closed-captions-text-youtube-video/'
+          }
+        ]
+      }
+      return [
+        ...links,
+        {
+          text: 'blog_post',
+          url:
+            'https://jefrydco.id/en/blog/search-closed-captions-text-youtube-video/'
+        }
+      ]
     }
   },
   watch: {
     keyword(keyword) {
       if (this.isNotEmptyString(keyword)) {
         this.search(keyword)
+      } else {
+        this.results = data
+      }
+    },
+    sort(sort) {
+      if (sort === 'Z-A') {
+        this.results = [...this.results].reverse()
       } else {
         this.results = data
       }
@@ -158,8 +196,6 @@ export default Vue.extend({
           this.index.add(datum)
         }
       })
-
-      window.index = this.index
     }
   }
 })
@@ -190,6 +226,11 @@ export default Vue.extend({
   }
 
   &__search {
+    @apply mb-2;
+  }
+
+  &__search,
+  &__sort {
     @apply flex justify-center;
   }
 
@@ -201,7 +242,8 @@ export default Vue.extend({
     @apply text-center;
   }
 }
-.input {
+.input,
+.select {
   @apply mb-4 py-1 px-2 rounded;
   background-color: var(--card-bg);
 
