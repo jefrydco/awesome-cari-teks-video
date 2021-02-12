@@ -1,20 +1,50 @@
+<i18n>
+{
+  "en": {
+    "repository": "GitHub Repository",
+    "app_url": "Application URL"
+  },
+  "id": {
+    "repository": "Repositori GitHub",
+    "app_url": "Pranala Aplikasi"
+  }
+}
+</i18n>
+
 <template>
   <section class="card">
+    <!-- <a :aria-label="title" :href="href" target="_blank" class="card__link">
+      {{ title }}
+    </a> -->
     <div class="card__img">
-      <app-img :src="img" :alt="title" />
+      <app-img :src="img" :alt="name" width="346" height="256" />
     </div>
     <div class="card__meta">
       <header>
         <h2 class="card__title">
-          {{ title }}
+          <a
+            :href="`https://github.com/${githubId}`"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {{ name }}
+          </a>
         </h2>
       </header>
-      <p class="card__summary">
-        {{ summary }}
-      </p>
-      <a :aria-label="title" :href="href" target="_blank" class="card__link">
-        {{ title }}
-      </a>
+      <div class="card__summary">
+        <div class="summary__item">
+          <h3>{{ $t('repository') }}</h3>
+          <a :href="githubUrl" target="_blank" rel="noopener noreferrer">
+            {{ githubUrl }}
+          </a>
+        </div>
+        <div class="summary__item">
+          <h3>{{ $t('app_url') }}</h3>
+          <a :href="appUrl" target="_blank" rel="noopener noreferrer">
+            {{ appUrl }}
+          </a>
+        </div>
+      </div>
     </div>
   </section>
 </template>
@@ -28,15 +58,19 @@ export default Vue.extend({
       type: String,
       default: ''
     },
-    title: {
+    name: {
       type: String,
       default: ''
     },
-    summary: {
+    githubId: {
       type: String,
       default: ''
     },
-    href: {
+    githubUrl: {
+      type: String,
+      default: ''
+    },
+    appUrl: {
       type: String,
       required: true
     }
@@ -68,7 +102,7 @@ export default Vue.extend({
   }
 
   &__title {
-    @apply capitalize font-bold text-2xl mt-0 mb-4;
+    @apply capitalize font-bold text-2xl mt-0 mb-5;
   }
 
   &__summary {
@@ -81,6 +115,14 @@ export default Vue.extend({
 
     &:focus {
       border: 0.125rem solid var(--text-normal);
+    }
+  }
+}
+
+.summary {
+  &__item {
+    &:not(:last-child) {
+      @apply mb-5;
     }
   }
 }

@@ -61,9 +61,10 @@
         :id="result['githubId']"
         :key="result['githubId']"
         :img="`${result['githubId']}.png`"
-        :title="result['name']"
-        :summary="result['appUrl']"
-        :href="result['appUrl']"
+        :name="result['name']"
+        :github-id="result['githubId']"
+        :github-url="result['githubUrl']"
+        :app-url="result['appUrl']"
       ></app-card>
     </div>
     <p v-else class="content__empty">
@@ -75,8 +76,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import VueLazyload from 'vue-lazyload'
-import data from '@awesome-cari-teks-video/data'
-import lunr from 'lunr'
+import Flexsearch from 'flexsearch'
 import debounceFn from 'debounce-fn'
 
 Vue.use(VueLazyload, {
@@ -84,22 +84,14 @@ Vue.use(VueLazyload, {
   lazyComponent: true
 })
 
-const idx = lunr(function () {
-  this.ref('githubId')
-  this.field('name')
-  this.field('githubUrl')
-  this.field('appUrl')
-
-  data.forEach((datum) => {
-    this.add(datum)
-  })
-})
+const { default: data } = require('@awesome-cari-teks-video/data')
 
 export default Vue.extend({
   data() {
     return {
       keyword: null,
       results: data,
+      index: null,
       links: [
         {
           text: 'source_code',
@@ -133,16 +125,42 @@ export default Vue.extend({
     }
   },
   watch: {
-    keyword: debounceFn(
-      function (keyword) {
-        this.results = data.filter((datum) =>
-          idx
-            .search(keyword || '')
-            .some((result) => result.ref === datum.githubId)
-        )
-      },
-      { wait: 250 }
-    )
+    keyword(keyword) {
+      if (this.isNotEmptyString(keyword)) {
+        this.search(keyword)
+      } else {
+        this.results = data
+      }
+    }
+  },
+  mounted() {
+    this.initIndex()
+  },
+  methods: {
+    isNotEmptyString(string) {
+      return typeof string === 'string' && string.length > 0
+    },
+    search: debounceFn(async function (keyword) {
+      if (this.index) {
+        this.results = await this.index.search(keyword)
+      }
+    }),
+    initIndex() {
+      this.index = Flexsearch.create({
+        doc: {
+          id: 'githubId',
+          field: ['name', 'githubId', 'githubUrl', 'appUrl']
+        }
+      })
+
+      data.forEach((datum) => {
+        if (this.index) {
+          this.index.add(datum)
+        }
+      })
+
+      window.index = this.index
+    }
   }
 })
 </script>
