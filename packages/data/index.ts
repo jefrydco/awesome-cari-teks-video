@@ -1,9 +1,9 @@
 import data from './data.json'
 
-type Datum = {
-  name: string,
-  githubId: string,
-  githubUrl: string,
+export type Datum = {
+  name: string
+  githubId: string
+  githubUrl: string
   appUrl: string
 }
 

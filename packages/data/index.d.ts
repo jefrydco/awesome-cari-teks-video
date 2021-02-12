@@ -1,4 +1,4 @@
-declare type Datum = {
+export declare type Datum = {
     name: string;
     githubId: string;
     githubUrl: string;
