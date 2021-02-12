@@ -18,6 +18,10 @@ Teman-teman dapat melihat daftar aplikasi keren yang dibuat menggunakan API Cari
 
 Dokumentasi dan kode sumber API tertulis di GitHub, [Cari Teks Video API](https://github.com/jefrydco/cari-teks-video-api/blob/main/readme-id.md#dokumentasi-api).
 
+## Desain API
+
+Detail desain API dan implementasinya dapat ditemukan di blog saya, [Jefrydco: Bagaimana Jika Kita Dapat Mencari Kata Kunci Apapun dari Video YouTube Manapun Melalui Captionnya?](https://jefrydco.id/blog/search-closed-captions-text-youtube-video/).
+
 ## Perizinan
 
 Kode sumber berlisensi [MIT](./license.md).
