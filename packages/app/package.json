@@ -38,6 +38,6 @@
     "lint-staged": "^10.5.4",
     "postcss-nested": "^4.2.3",
     "responsive-loader": "^2.3.0",
-    "sharp": "^0.27.1"
+    "sharp": "^0.30.5"
   }
 }
